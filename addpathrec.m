@@ -21,4 +21,3 @@ for k = 1:length(list)
         addpathrec([path '/' list(k).name]);
     end
 end
-de

@@ -90,7 +90,7 @@ if isempty(op) || strcmp(op.name, 'id')
 else
     error('Not implemented.');
     if verbose
-        fprintf('GGMM-EPLL: step 0 (total time: %0.2f seconds)\n', ...
+        fprintf('%s-EPLL: step 0 (total time: %0.2f seconds)\n', ...
                 toc(tstart));
     end
 end
@@ -121,8 +121,8 @@ for iter = 1:num_iter
                                      beta * sigma^2);
     end
     if verbose
-        fprintf('GGMM-EPLL: step %d (total time: %0.2f seconds)\n', ...
-                iter, toc(tstart));
+        fprintf('%s-EPLL: step %d (total time: %0.2f seconds)\n', ...
+                upper(prior_model.name), iter, toc(tstart));
     end
 end
 
