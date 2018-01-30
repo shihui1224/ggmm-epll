@@ -14,16 +14,17 @@
 clear all
 close all
 
+cd(fileparts(mfilename('fullpath')));
 addpath('..');
 addpathrec('..');
 
 L = 100;
-B = 100;
+N = 100;
 
-la = [logspace(log10(0.001), log10(1000), L)];
-nu = logspace(log10(0.3), log10(2), B);
+la = logspace(log10(0.001), log10(1000), L);
+nu = logspace(log10(0.3), log10(2), N);
 
-a1 = 2*ones(B, L);
+a1 = 2*ones(N, L);
 b1 = estimate_b1(nu, la)';
 
 close all

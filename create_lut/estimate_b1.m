@@ -81,12 +81,6 @@ for k = 1:length(nu)
                  c-w, c+w, 'AbsTol', 1e-12);
     q2(k) = integral(@(x) x.^2 .* exp(-g(x) + s(k)), ...
                  c-w, c+w, 'AbsTol', 1e-12);
-    %b1(k) = log(q1);
-    %b2(k) = log(q2);
-    %if isnan(b1(k)) || isinf(b1(k))
-        % the function is proabably a dirac of mass 1
-        %    b1(k) = 0;
-        %end
 end
 b1 = -log(2) + log(1-q2./q1);
 

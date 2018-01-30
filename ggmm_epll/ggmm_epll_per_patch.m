@@ -31,23 +31,34 @@ options      = makeoptions(varargin{:});
 verbose      = getoptions(options, 'verbose', true);
 modeshrink   = getoptions(options, 'modeshrink', 'trunc');
 
-P2           = size(ztilde, 1);
+[d, n]       = size(ztilde);
+
+% Retrieve model parameters
+numMix       = length(prior_model.GS.S);
+U            = prior_model.GS.U;
+S            = prior_model.GS.S;
+nu           = prior_model.GS.nu;
+wts          = prior_model.GS.wts;
 
 % Remove DC component
 zdc          = mean(ztilde);
 ztilde       = bsxfun(@minus, ztilde, zdc);
 
-% Gaussian selection
-labels     = gs_match(ztilde, prior_model.GS, sigma2, varargin{:});
+% Mixture component selection / Patch classification
+energy = zeros(numMix, n);
+for k = 1:numMix
+    uy            = U{k}' * ztilde;
+    ggmet         = gg_discrepancy(uy, sqrt(sigma2), sqrt(S{k}), nu{k}, ...
+                                   varargin{:});
+    energy(k,:)   = -log(wts(k)) + sum(ggmet, 1);
+end
+[~, labels]  = min(energy, [], 1);
 
 % Patch estimation
-U          = prior_model.GS.U;
-S          = prior_model.GS.S;
-nu         = prior_model.GS.nu;
-lab_list   = unique(labels(:))';
-zhat       = zeros(size(ztilde));
+lab_list     = unique(labels(:))';
+zhat         = zeros(size(ztilde));
 for k = lab_list
-    inds = labels == k;
+    inds          = labels == k;
     ctilde        = U{k}' * ztilde(:, inds);
     chat          = gg_shrinkage(ctilde, sqrt(sigma2), ...
                                  sqrt(S{k}), nu{k}, modeshrink);

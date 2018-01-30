@@ -14,21 +14,22 @@
 clear all
 close all
 
+cd(fileparts(mfilename('fullpath')));
 addpath('..');
 addpathrec('..');
 
 L = 100;
-B = 100;
+N = 100;
 
 la = [logspace(log10(0.001), log10(1000), L)];
-be = logspace(log10(0.3), log10(2), B);
-ga = zeros(B, L);
-for k = 1:length(be)
-    ga(k,:) = gg_discrepancy(0, 1, la, be(k), 'mode', 'direct') - log(sqrt(2 * pi));
+nu = logspace(log10(0.3), log10(2), N);
+ga = zeros(N, L);
+for k = 1:length(nu)
+    ga(k,:) = gg_discrepancy(0, 1, la, nu(k), 'mode', 'direct') - log(sqrt(2 * pi));
 end
 
 fancyfigure
-surf(log10(la), log10(be), log(ga));
+surf(log10(la), log10(nu), log(ga));
 xlabel('$\lambda$');
 ylabel('$\nu$');
 zlabel('$\log \gamma(\lambda, \nu)$');
@@ -37,6 +38,6 @@ ylim([log10(0.3) log10(4)]);
 
 return
 log_la = log(la);
-log_nu = log(be);
+log_nu = log(nu);
 log_ga0 = log(ga)';
 save('gamma0_lookup_table_100x100.mat', 'log_la', 'log_nu', 'log_ga0');

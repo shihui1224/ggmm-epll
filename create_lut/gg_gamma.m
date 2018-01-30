@@ -13,10 +13,10 @@
 
 function ga = gg_gamma(la, nu, mode, lts)
 
-    switch mode
-      case 'direct'
-        ga = gg_metric(0, 1, la, nu, 'mode', 'direct');
-      case 'approx'
+switch mode
+    case 'direct'
+        ga = gg_discrepancy(0, 1, la, nu, 'mode', 'direct');
+    case 'approx'
         if ~exist('lts', 'var')
             lt = load('gamma0_lookup_table.mat');
             lt.x = lt.log_la;
@@ -31,4 +31,4 @@ function ga = gg_gamma(la, nu, mode, lts)
         end
         log_ga0 = access_lt(log(la), log(nu), lt);
         ga = exp(log_ga0) + log(sqrt(2 * pi));
-    end
+end

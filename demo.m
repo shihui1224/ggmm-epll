@@ -15,6 +15,7 @@
 clear all
 close all
 
+cd(fileparts(mfilename('fullpath')));
 addpathrec('.')
 deterministic('on');
 

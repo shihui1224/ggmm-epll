@@ -14,18 +14,19 @@
 clear all
 close all
 
+cd(fileparts(mfilename('fullpath')));
 addpath('..');
 addpathrec('..');
 
 L = 100;
-B = 100;
+N = 100;
 
 la = [logspace(log10(0.001), log10(1000), L)];
-nu = logspace(log10(0.3), log10(2), B);
-a2 = zeros(B, L);
-b2 = zeros(B, L);
+nu = logspace(log10(0.3), log10(2), N);
+a2 = zeros(N, L);
+b2 = zeros(N, L);
 
-a2 = ones(B,1) * nu;
+a2 = ones(N,1) * nu;
 b2 = -nu .* log(la') ...
      -nu/2.*(gammaln(1./nu)-gammaln(3./nu));
 

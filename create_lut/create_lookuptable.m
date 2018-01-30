@@ -14,6 +14,8 @@
 clear all
 close all
 
+cd(fileparts(mfilename('fullpath')));
+
 desc = 'x=log(lambda), y=log(nu)';
 
 load('gamma0_lookup_table.mat')

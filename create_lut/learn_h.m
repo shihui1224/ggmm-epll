@@ -14,17 +14,18 @@
 clear all
 close all
 
+cd(fileparts(mfilename('fullpath')));
 addpath('..');
 addpathrec('..');
 
 L = 100;
-B = 100;
+N = 100;
 
 la = logspace(log10(0.001), log10(1000), L);
-nu = logspace(log10(0.3), log10(2), B);
-h = zeros(L, B);
-for k = 1:length(la)
-    k
+nu = logspace(log10(0.3), log10(2), N);
+h = zeros(L, N);
+for k = 1:L
+    fprintf('%.2f%%', (k-1)/(L-1));
     for l = 1:length(nu)
         a1 = gg_a1(la(k), nu(l));
         b1 = gg_b1(la(k), nu(l));
@@ -38,7 +39,7 @@ for k = 1:length(la)
             c = (b2-b1)/(a1-a2);
         end
         x = logspace(-3, 2*log10(exp(c))+3, 101);
-        y = log(gg_metric(x, 1, la(k), nu(l), 'mode', 'direct') - gamma);
+        y = log(gg_discrepancy(x, 1, la(k), nu(l), 'mode', 'direct') - gamma);
         lx = log(x);
         f1 = a1 .* lx + b1;
         f2 = a2 .* lx + b2;

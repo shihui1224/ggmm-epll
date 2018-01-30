@@ -52,7 +52,6 @@ void mexFunction(int nlhs, mxArray *plhs[],
   const double* h;
   double* ih;
   const mwSize* sx;
-  //const mwSize* sp;
   double* f;
 
   int i;
@@ -63,26 +62,24 @@ void mexFunction(int nlhs, mxArray *plhs[],
       usage();
       return;
     }
-  plhs = plhs;
-
   for (k = 0; k < 7; ++k)
     if (!mxIsNumeric(prhs[k]) || mxIsComplex(prhs[k]))
       {
 	usage();
 	return;
       }
-  x     = mxGetData(prhs[0]);
-  nu    = mxGetData(prhs[1]);
-  a1    = mxGetData(prhs[2]);
-  a2    = mxGetData(prhs[3]);
-  b1    = mxGetData(prhs[4]);
-  b2    = mxGetData(prhs[5]);
-  h     = mxGetData(prhs[6]);
+  x  = mxGetData(prhs[0]);
+  nu = mxGetData(prhs[1]);
+  a1 = mxGetData(prhs[2]);
+  a2 = mxGetData(prhs[3]);
+  b1 = mxGetData(prhs[4]);
+  b2 = mxGetData(prhs[5]);
+  h  = mxGetData(prhs[6]);
 
-  sx     = mxGetDimensions(prhs[0]);
+  sx = mxGetDimensions(prhs[0]);
 
-  d = sx[0];
-  N = sx[1];
+  d  = sx[0];
+  N  = sx[1];
 
   plhs[0] = mxCreateDoubleMatrix(d, N, mxREAL);
   f = (double*) mxGetPr(plhs[0]);

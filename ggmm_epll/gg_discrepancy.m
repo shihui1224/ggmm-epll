@@ -33,7 +33,7 @@ x   = x ./ tau;
 si  = si ./ tau;
 la  = la ./ tau;
 
-for dummy = 1
+for dummy = 1 % Used to break/quit the switch
     switch mode
         case 'stochastic' % Very poor performance
             alpha = la * exp((gammaln(1/nu) - gammaln(3/nu))/2);
@@ -165,24 +165,24 @@ for dummy = 1
             [ga, a1, a2, b1, b2, h] = gg_discrepancy_params(la, nu, lut);
             switch 'softplusc'
                 case 'relu'
-                    lx = log(abs(x));
-                    f1 = a1 .* lx + b1;
-                    f2 = a2 .* lx + b2;
-                    idx     = (nu <= 2);
-                    f       = zeros(size(f1));
+                    lx  = log(abs(x));
+                    f1  = a1 .* lx + b1;
+                    f2  = a2 .* lx + b2;
+                    idx = (nu <= 2);
+                    f   = zeros(size(f1));
                     f(idx,:)  = min(f1(idx,:),  f2(idx,:));
                     f(~idx,:) = max(f1(~idx,:), f2(~idx,:));
-                    f = exp(f) + ga;
+                    f   = exp(f) + ga;
                 case 'softplus'
-                    lx = log(abs(x));
-                    f1 = a1 .* lx + b1;
-                    f2 = a2 .* lx + b2;
-                    di = (f2 - f1)  ./ h;
-                    le = h .* log(1 + exp(di));
-                    f  = (nu <= 2) .* (f2 - le) + ...
+                    lx  = log(abs(x));
+                    f1  = a1 .* lx + b1;
+                    f2  = a2 .* lx + b2;
+                    di  = (f2 - f1)  ./ h;
+                    le  = h .* log(1 + exp(di));
+                    f   = (nu <= 2) .* (f2 - le) + ...
                          (nu >  2) .* (f1 + le);
                     f(isinf(lx)) = -Inf;
-                    f = exp(f) + ga;
+                    f   = exp(f) + ga;
                 case 'softplusc'
                     % Same as softplus but written in MEX-C
                     f = ga + exp(gg_discrepancy_core(log(abs(x)), nu, a1, a2, b1, b2, h));
