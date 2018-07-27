@@ -179,8 +179,9 @@ for dummy = 1 % Used to break/quit the switch
                     f2  = a2 .* lx + b2;
                     di  = (f2 - f1)  ./ h;
                     le  = h .* log(1 + exp(di));
-                    f   = (nu <= 2) .* (f2 - le) + ...
-                         (nu >  2) .* (f1 + le);
+                    f   = (nu <  2) .* (f2 - le) + ...
+                          (nu >  2) .* (f1 + le) + ...
+                          (nu == 2) .* f1;
                     f(isinf(lx)) = -Inf;
                     f   = exp(f) + ga;
                 case 'softplusc'
