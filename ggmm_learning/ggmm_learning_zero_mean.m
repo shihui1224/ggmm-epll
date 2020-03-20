@@ -200,7 +200,7 @@ for k = 1:K
 end
 gmm.weight        = weight(idx);
 gmm.logweight     = log(gmm.weight);
-
+end
 
 
 function varargout = mysvd(A)
@@ -215,3 +215,4 @@ function varargout = mysvd(A)
         varargout{2} = D;
         varargout{1} = U;
     end
+end

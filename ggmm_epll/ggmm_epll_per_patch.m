@@ -35,10 +35,12 @@ modeshrink   = getoptions(options, 'modeshrink', 'trunc');
 
 % Retrieve model parameters
 numMix       = length(prior_model.GS.S);
+
 U            = prior_model.GS.U;
 S            = prior_model.GS.S;
 nu           = prior_model.GS.nu;
 wts          = prior_model.GS.wts;
+
 
 % Remove DC component
 zdc          = mean(ztilde);

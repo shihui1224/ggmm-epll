@@ -30,8 +30,10 @@ y      = x + sig * randn(M, N);
 
 % Load prior computed offline
 prior_model{1} = get_prior('gmm');
-prior_model{2} = get_prior('lmm');
-prior_model{3} = get_prior('ggmm');
+prior_model{2} = get_prior('gmm_sketching');
+% prior_model{2} = get_prior('lmm');
+% prior_model{3} = get_prior('ggmm');
+
 
 % Run GGMM EPLL
 for k = 1:length(prior_model)
@@ -47,12 +49,17 @@ plotimage(y, 'range', [0 1]);
 title(sprintf('Noisy image (PSNR %.2f, SSIM %.3f)', ...
               psnr(y, x), ...
               ssim(y, x)));
+% title(sprintf('Noisy image (PSNR %.2f, SSIM %.3f)', ...
+%               psnr(y, x)));
 for k = 1:length(prior_model)
     subplot(2,2,1+k)
     plotimage(xhat{k}, 'range', [0 1]);
+%     title(sprintf('%s+EPLL (PSNR %.2f, SSIM %.3f)', ...
+%                   upper(prior_model{k}.name), ...
+%                   psnr(xhat{k}, x), ...
+%                   ssim(xhat{k}, x)));
     title(sprintf('%s+EPLL (PSNR %.2f, SSIM %.3f)', ...
                   upper(prior_model{k}.name), ...
-                  psnr(xhat{k}, x), ...
-                  ssim(xhat{k}, x)));
+                  psnr(xhat{k}, x)));
 end
 linkaxes

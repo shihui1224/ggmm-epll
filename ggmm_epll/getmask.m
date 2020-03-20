@@ -31,6 +31,7 @@ end
 if r == 1
     ho = 0;
 else
+    
     ho = floor((P - r)/2);
 end
 

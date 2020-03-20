@@ -27,6 +27,8 @@ switch name
         load('data/hlmm_05.mat', 'GS');
     case 'ggmm'
         load('data/ggmm.mat', 'GS');
+    case 'gmm_sketching'
+        GS = load('my_prior.mat');
 end
 prior_model.GS     = GS;
 prior_model.name   = name;
