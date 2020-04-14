@@ -21,14 +21,35 @@ switch name
             GS.nu{k} = 2 * ones(GS.dim, 1);
         end
         GS.nu{k} = double(GS.nu{k});
-    case 'lmm'
-        load('data/lmm.mat', 'GS');
+    case 'EM'
+        load('/home/imb/hshi/sketching/prior/my_prior_em.mat', 'GS');
     case 'hlmm_05'
         load('data/hlmm_05.mat', 'GS');
     case 'ggmm'
         load('data/ggmm.mat', 'GS');
-    case 'gmm_sketching'
-        GS = load('my_prior.mat');
+    case 'my_prior'
+        load('/home/imb/hshi/sketching/prior/my_prior.mat','GS');
+    case 'r = 10'
+        load('/home/imb/hshi/sketching/prior/my_prior.mat','GS');
+    case 'sigma2 = 1e-4'
+        load('/home/imb/hshi/sketching/prior/sig1e4.mat','GS');
+    case 'sigma2 = 1e-4n2'
+        load('/home/imb/hshi/sketching/prior/sig1e4n2.mat','GS');
+    case 'k = 20, sigma2 = 1e-4'
+        load('/home/imb/hshi/sketching/prior/r10sig1e4.mat','GS');
+    case 'sigma2 = 1e-3'
+        load('/home/imb/hshi/sketching/prior/sig1e3.mat','GS');
+    case 'sigma2 = 1e-5'
+        load('/home/imb/hshi/sketching/prior/sig1e5.mat','GS');
+    case 'sigma2 = 1e-6'
+        load('/home/imb/hshi/sketching/prior/sig1e6.mat','GS');
+    case 'r = 10, sigma2 = 1e-5'
+        load('/home/imb/hshi/sketching/prior/r10sig1e5.mat','GS');
+    case 'k = 50, sigma2 = 1e-4'
+        load('/home/imb/hshi/sketching/prior/sig1e4k50.mat','GS');
+    case 'k = 40, sigma2 = 1e-4'
+        load('/home/imb/hshi/sketching/prior/r10k40sig4n2.mat','GS');
+    
 end
 prior_model.GS     = GS;
 prior_model.name   = name;

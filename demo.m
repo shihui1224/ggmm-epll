@@ -29,10 +29,18 @@ sig    = sig / 255;
 y      = x + sig * randn(M, N);
 
 % Load prior computed offline
-prior_model{1} = get_prior('gmm');
-prior_model{2} = get_prior('gmm_sketching');
-% prior_model{2} = get_prior('lmm');
-% prior_model{3} = get_prior('ggmm');
+% prior_model{1} = get_prior('gmm');
+
+
+prior_model{1} = get_prior('k = 20, sigma2 = 1e-4');
+% prior_model{2} = get_prior('sigma2 = 1e-4');
+% prior_model{3} = get_prior('sigma2 = 1e-4n2');
+prior_model{4} = get_prior('EM');
+% prior_model{4} = get_prior('my_prior');
+% prior_model{3} = get_prior('k = 50, sigma2 = 1e-4');
+% prior_model{2} = get_prior('r = 10');
+
+prior_model{2} = get_prior('k = 40, sigma2 = 1e-4');
 
 
 % Run GGMM EPLL
@@ -44,22 +52,19 @@ end
 
 % Display
 fancyfigure;
-subplot(2,2,1)
-plotimage(y, 'range', [0 1]);
-title(sprintf('Noisy image (PSNR %.2f, SSIM %.3f)', ...
-              psnr(y, x), ...
-              ssim(y, x)));
+% subplot(2,2,1)
+% plotimage(y, 'range', [0 1]);
 % title(sprintf('Noisy image (PSNR %.2f, SSIM %.3f)', ...
-%               psnr(y, x)));
+%               psnr(y, x), ...
+%               ssim(y, x)));
+
 for k = 1:length(prior_model)
-    subplot(2,2,1+k)
+    subplot(2,2,k)
     plotimage(xhat{k}, 'range', [0 1]);
-%     title(sprintf('%s+EPLL (PSNR %.2f, SSIM %.3f)', ...
-%                   upper(prior_model{k}.name), ...
-%                   psnr(xhat{k}, x), ...
-%                   ssim(xhat{k}, x)));
-    title(sprintf('%s+EPLL (PSNR %.2f, SSIM %.3f)', ...
+    title(sprintf('%s (PSNR %.2f, SSIM %.3f)', ...
                   upper(prior_model{k}.name), ...
-                  psnr(xhat{k}, x)));
+                  psnr(xhat{k}, x), ...
+                  ssim(xhat{k}, x)));
+
 end
 linkaxes
